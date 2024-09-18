@@ -1,3 +1,5 @@
+import 'package:airportadminflutter/core/network/dioClient.dart';
+import 'package:airportadminflutter/core/showSuccessDialog.dart';
 import 'package:airportadminflutter/routes/AppRoute.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -30,4 +32,22 @@ class HomeController extends GetxController {
     await Future.delayed(const Duration(seconds: 3));
     Get.offNamed(Approute.login); // Redirect to login page
   }
+
+  void deleteAccount(int adminId) async {
+  try {
+    var response = await DioClient().GetInstance().delete('/admin/$adminId'); // Use adminId
+    if (response.statusCode == 200) {
+      showsuccessdialog(Get.context!, "Admin deleted successfully", "", () {
+        Get.offNamed("/register");
+      });
+    } else {
+      print("Error deleting admin: ${response.data}");
+      showsuccessdialog(Get.context!, "Error", "Failed to delete admin.", () {});
+    }
+  } catch (e) {
+    print("Error: $e");
+    showsuccessdialog(Get.context!, "Error", "An unexpected error occurred.", () {});
+  }
+}
+
 }

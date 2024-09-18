@@ -4,7 +4,7 @@ import 'package:airportadminflutter/binding/loginBinding.dart';
 import 'package:airportadminflutter/binding/registrationBinding.dart';
 import 'package:airportadminflutter/routes/AppRoute.dart';
 import 'package:airportadminflutter/view/admins.dart';
-import 'package:airportadminflutter/view/home.dart';
+import 'package:airportadminflutter/view/booking.dart';
 import 'package:airportadminflutter/view/login.dart';
 import 'package:airportadminflutter/view/profile.dart';
 import 'package:airportadminflutter/view/registration.dart';
@@ -13,7 +13,7 @@ import 'package:get/get.dart';
 
 class Apppage {
   static final List <GetPage> pages = [
-    GetPage(name: Approute.home, page: ()=>Home(), binding: Homebinding()),
+    GetPage(name: Approute.booking, page: ()=>Booking(), binding: Homebinding()),
     GetPage(name: Approute.login, page: ()=>Login(), binding: Loginbinding()),
     GetPage(name: Approute.register, page: ()=>Registration(), binding: Registrationbinding()),
     GetPage(name: Approute.admins, page: ()=>Admins(), binding: Adminsbinding()),

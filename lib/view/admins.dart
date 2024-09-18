@@ -22,7 +22,7 @@ class _AdminsState extends State<Admins> {
        appBar: AppBar(
         title: Text('Admins List'),
         automaticallyImplyLeading: false,
-        centerTitle: true,
+        centerTitle: false,
         ),
       body: Center(
         child: Column(

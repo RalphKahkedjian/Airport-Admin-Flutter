@@ -3,11 +3,13 @@ import 'package:airportadminflutter/core/showSuccessDialog.dart';
 import 'package:airportadminflutter/model/Ticket.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketController extends GetxController {
+  var tickets = <Ticket>[].obs; // Observable list of tickets
+
   TextEditingController departure = TextEditingController();
   TextEditingController destination = TextEditingController();
   TextEditingController flightNumberController = TextEditingController();
@@ -16,59 +18,86 @@ class TicketController extends GetxController {
   TextEditingController departureTimeController = TextEditingController();
   TextEditingController arrivalTimeController = TextEditingController();
 
-  void createTicket() async {
-    try {
-      double price = double.tryParse(priceController.text) ?? 0.0;
+ void createTicket() async {
+  try {
+    double price = double.tryParse(priceController.text) ?? 0.0;
 
-      // Parse the time with AM/PM
-      DateTime now = DateTime.now();
-      DateTime departureTime = _parseTime(departureTimeController.text, now);
-      DateTime arrivalTime = _parseTime(arrivalTimeController.text, now);
+    DateTime now = DateTime.now();
+    DateTime departureTime = _parseTime(departureTimeController.text, now);
+    DateTime arrivalTime = _parseTime(arrivalTimeController.text, now);
 
-      Ticket ticket = Ticket(
-        departure: departure.text,
-        destination: destination.text,
-        flightNumber: flightNumberController.text,
-        seatNumber: seatNumberController.text,
-        price: price,
-        departureTime: departureTime,
-        arrivalTime: arrivalTime,
-      );
+    Ticket ticket = Ticket(
+      departure: departure.text,
+      destination: destination.text,
+      flightNumber: flightNumberController.text,
+      seatNumber: seatNumberController.text,
+      price: price,
+      departureTime: departureTime,
+      arrivalTime: arrivalTime,
+    );
 
-      String requestBody = ticket.toJson();
-      
-      var response = await DioClient().GetInstance().post('/ticket', data: requestBody);
-      
-      if (response.statusCode == 200) {
-        print("Ticket created successfully: ${response.data}");
-        showsuccessdialog(Get.context!, "Success", "Your ticket has been created successfully", () {
-          Get.offNamed('/home');
-        });
-      } else {
-        print("Failed to create ticket: ${response.statusCode}");
-      }
-    } catch (e) {
-      print("Error while creating ticket: $e");
-      // Optionally, show an error dialog or message
-      showsuccessdialog(Get.context!, "Error", "An error occurred while creating the ticket. Please try again.", () {
-        Get.back();
+    String requestBody = ticket.toJson();
+
+    var response = await DioClient().GetInstance().post('/ticket', data: requestBody);
+    print("Response: ${response.data}"); // Log the entire response
+
+    if (response.statusCode == 200 && response.data['success'] == true) {
+      String ticketId = response.data['ticket']['id'].toString(); // Access ID from nested object
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('ticket_id', ticketId);
+      print("Ticket ID saved: $ticketId"); // Log saved ticket ID
+
+      showsuccessdialog(Get.context!, "Success", "Your ticket has been created successfully", () {
+        Get.offNamed('/home');
       });
+    } else {
+      print("Failed to create ticket: ${response.statusCode}");
     }
+  } catch (e) {
+    print("Error while creating ticket: $e");
+    showsuccessdialog(Get.context!, "Error", "An error occurred while creating the ticket. Please try again.", () {
+      Get.back();
+    });
   }
+}
+
 
   DateTime _parseTime(String timeString, DateTime date) {
     try {
-      // Parse the time string like "9:01 PM"
-      final DateFormat formatter = DateFormat.jm(); // For parsing "9:01 PM"
-      // Parse the time using the formatter
+      final DateFormat formatter = DateFormat.jm();
       DateTime time = formatter.parse(timeString);
-      
-      // Combine the parsed time with the provided date
       return DateTime(date.year, date.month, date.day, time.hour, time.minute);
     } catch (e) {
       print("Error parsing time: $e");
-      // Handle parsing error, you might want to throw an exception or return a default value
       throw FormatException("Invalid time format");
     }
   }
+
+void deleteTickets() async {
+  try {
+    SharedPreferences prefs = await SharedPreferences.getInstance();
+    String? ticketId = prefs.getString('ticket_id');
+
+    if (ticketId != null) {
+      var response = await DioClient().GetInstance().delete('/ticket/$ticketId'); // Include the ticket ID in the URL
+      print('Response: ${response.data}'); // Log the response for debugging
+
+      if (response.statusCode == 200) {
+        showsuccessdialog(Get.context!, "Ticket Deleted Successfully", "", () {
+          // Optional: Handle post-deletion actions
+        });
+      } else {
+        print("Failed to delete ticket: ${response.statusCode}");
+      }
+    } else {
+      print("No ticket ID found in SharedPreferences.");
+    }
+  } catch (e) {
+    print('Error deleting ticket: $e');
+  }
+}
+
+
+
+
 }

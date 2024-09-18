@@ -11,13 +11,13 @@ class Ticket extends StatelessWidget {
       appBar: AppBar(
         title: Text('Create Ticket'),
         automaticallyImplyLeading: false,
-        centerTitle: true,
+        centerTitle: false,
         ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Padding(padding: const EdgeInsets.all(35),
         child: SingleChildScrollView(
-          child: Column(
+          child: Padding(padding: const EdgeInsets.all(35),
+        child: Column(
           children: [
               TextField(
               controller: controller.departure,
@@ -69,7 +69,7 @@ class Ticket extends StatelessWidget {
             ),
           ],
         ),
-        )
+        ),
         )
       ),
     );

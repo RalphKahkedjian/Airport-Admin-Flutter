@@ -32,11 +32,14 @@ class LoginController extends GetxController {
       print("Response received: ${response.statusCode}");
 
       if (response.statusCode == 200) {
-        await _saveUserData(response.data['access_token'], response.data['admin']['name']);
+        await _saveUserData(
+          response.data['access_token'], 
+          response.data['admin']['name'], // Correctly retrieve the name
+          response.data['admin']['id'] // Correctly retrieve the ID
+        );
         showsuccessdialog(context, 'Success', 'Login successful!', () {
           print("Navigating to home");
           Future.delayed(const Duration(seconds: 2), () {
-            print(_saveUserData);
             Get.offNamed('/home'); // Navigate to home screen
           });
         });
@@ -48,10 +51,11 @@ class LoginController extends GetxController {
     }
   }
 
-  Future<void> _saveUserData(String token, String name) async {
+  Future<void> _saveUserData(String token, String name, int id) async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
     await prefs.setString('email', email.text);
     await prefs.setString('name', name); // Save the user's name correctly
+    await prefs.setInt('id', id); // Save the user's ID correctly as an integer
   }
 }
