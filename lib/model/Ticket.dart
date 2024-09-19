@@ -4,12 +4,12 @@ import 'dart:convert';
 class Ticket {
   final String departure;
   final String destination;
-  final String flightNumber; // Flight number
-  final String seatNumber;   // Seat number
-  final double price;        // Price
-  final DateTime departureTime; // Departure time
-  final DateTime arrivalTime;   // Arrival time
-  final String status;       // Status
+  final String flightNumber;
+  final String seatNumber;   
+  final double price;        
+  final DateTime departureTime; 
+  final DateTime arrivalTime; 
+  final String status;     
 
   Ticket({
     required this.departure,

@@ -8,7 +8,7 @@ import 'package:intl/intl.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class TicketController extends GetxController {
-  var tickets = <Ticket>[].obs; // Observable list of tickets
+  var tickets = <Ticket>[].obs;
 
   TextEditingController departure = TextEditingController();
   TextEditingController destination = TextEditingController();

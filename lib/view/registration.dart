@@ -64,7 +64,7 @@ class Registration extends StatelessWidget {
               const SizedBox(height: 20),
               ElevatedButton(
                 onPressed: () {
-                  controller.register(context); // Pass the context here
+                  controller.register(context);
                 },
                 child: const Text('Register', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(

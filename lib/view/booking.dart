@@ -1,5 +1,4 @@
 import 'package:airportadminflutter/controller/ticketController.dart';
-import 'package:airportadminflutter/core/showSuccessDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:airportadminflutter/core/network/dioClient.dart';
 import 'package:get/get.dart';
@@ -10,15 +9,14 @@ class Booking extends StatefulWidget {
 }
 
 class _BookingState extends State<Booking> {
-  List<dynamic> tickets = []; // Declare the tickets list to store fetched tickets
+  List<dynamic> tickets = []; 
     static final TicketController controller = Get.put(TicketController());
     
-
-  @override
-  void initState() {
-    super.initState();
-    getTickets(); // Call the getTickets method on widget initialization
-  }
+    @override
+    void initState() {
+      super.initState();
+      getTickets();
+    }
 
   void getTickets() async {
     try {
@@ -29,7 +27,7 @@ class _BookingState extends State<Booking> {
 
         if (ticketData is List) {
           setState(() {
-            tickets = ticketData; // Store the list of tickets
+            tickets = ticketData;
           });
         } else {
           print("Expected ticket data to be a list but got: ${ticketData.runtimeType}");

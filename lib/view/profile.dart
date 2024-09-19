@@ -4,9 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+// ignore: must_be_immutable
 class Profile extends StatelessWidget {
   static final HomeController controller = Get.put(HomeController());
-  String password = "1234567"; // Created a random password text 
+  String password = "1234567"; 
 
   @override
   Widget build(BuildContext context) {
@@ -78,7 +79,7 @@ class Profile extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0), // Set border radius to 0
+                              borderRadius: BorderRadius.circular(0),
                             ),
                           ),
                         ),
@@ -89,9 +90,9 @@ class Profile extends StatelessWidget {
 
                       ElevatedButton(
                         onPressed: () async {
-                          // Get admin ID from SharedPreferences
+                        
                           SharedPreferences prefs = await SharedPreferences.getInstance();
-                          int? adminId = prefs.getInt('id'); // Make sure to store the ID as an int during registration
+                          int? adminId = prefs.getInt('id');
 
                           if (adminId != null) {
                             controller.deleteAccount(adminId);
@@ -103,7 +104,7 @@ class Profile extends StatelessWidget {
                           backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0), // Set border radius to 0
+                              borderRadius: BorderRadius.circular(0),
                             ),
                           ),
                         ),

@@ -30,12 +30,12 @@ class HomeController extends GetxController {
     print("token");
 
     await Future.delayed(const Duration(seconds: 3));
-    Get.offNamed(Approute.login); // Redirect to login page
+    Get.offNamed(Approute.login);
   }
 
   void deleteAccount(int adminId) async {
   try {
-    var response = await DioClient().GetInstance().delete('/admin/$adminId'); // Use adminId
+    var response = await DioClient().GetInstance().delete('/admin/$adminId');
     if (response.statusCode == 200) {
       showsuccessdialog(Get.context!, "Admin deleted successfully", "", () {
         Get.offNamed("/register");

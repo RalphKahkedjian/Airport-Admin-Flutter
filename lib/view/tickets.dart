@@ -61,12 +61,11 @@ class Ticket extends StatelessWidget {
                 SizedBox(height: 25,),
             ElevatedButton(
               onPressed: () {
-                // Handle ticket creation
                 controller.createTicket();
               },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(0), // Set border radius to 0
+                              borderRadius: BorderRadius.circular(0),
                             ),
                           ),),
               child: Text('Create Ticket', style: TextStyle(color: Colors.white),),
@@ -87,7 +86,7 @@ class Ticket extends StatelessWidget {
 
     if (pickedTime != null) {
       String formattedTime = pickedTime.format(Get.context!);
-      controller.text = formattedTime; // Set the selected time
+      controller.text = formattedTime;
     }
   }
 }

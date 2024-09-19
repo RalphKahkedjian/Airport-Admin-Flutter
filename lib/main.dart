@@ -1,5 +1,5 @@
 import 'package:airportadminflutter/view/admins.dart';
-import 'package:airportadminflutter/view/booking.dart'; // Ensure this file exists
+import 'package:airportadminflutter/view/booking.dart';
 import 'package:airportadminflutter/view/login.dart';
 import 'package:airportadminflutter/view/profile.dart';
 import 'package:airportadminflutter/view/registration.dart';
@@ -8,8 +8,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-void main() {
-  runApp(MyApp(startRoute: '/login')); // Change the start route as needed
+void main() async {
+  WidgetsFlutterBinding.ensureInitialized();
+  SharedPreferences prefs = await SharedPreferences.getInstance();
+  String startRoute = prefs.getString('token') != null ? '/home' : '/login'; 
+
+  runApp(MyApp(startRoute: startRoute));
 }
 
 class MyApp extends StatelessWidget {
@@ -20,13 +24,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      title: 'Default Layout Example',
-      theme: ThemeData(
-        primarySwatch: Colors.blue,
-      ),
+      title: 'Airport Admin',
       initialRoute: startRoute,
       routes: {
-        '/booking' : (context) => Booking(),
+        '/booking': (context) => Booking(),
         '/register': (context) => Registration(),
         '/login': (context) => Login(),
         '/home': (context) => const DefaultLayout(),
@@ -49,7 +50,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
   @override
   void initState() {
     super.initState();
-    _loadName(); // Load name from SharedPreferences
+    _loadName(); 
   }
 
   Future<void> _loadName() async {
@@ -92,7 +93,6 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         backgroundColor: Colors.blueGrey[900],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
-     
       body: _pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[

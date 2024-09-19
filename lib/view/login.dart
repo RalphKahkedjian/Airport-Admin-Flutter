@@ -56,7 +56,7 @@ class Login extends StatelessWidget {
               const SizedBox(height: 20),
             ElevatedButton(
               onPressed: () {
-                controller.login(context); // Pass the context here
+                controller.login(context);
               },
               child: const Text('Login', style: TextStyle(color: Colors.white)),
               style: ElevatedButton.styleFrom(
