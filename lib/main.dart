@@ -89,7 +89,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
           style: const TextStyle(color: Colors.white, fontWeight: FontWeight.bold, letterSpacing: 2.5),
         ),
         centerTitle: true,
-        backgroundColor: Colors.orange[900],
+        backgroundColor: Colors.blueGrey[900],
         iconTheme: const IconThemeData(color: Colors.white),
       ),
      
@@ -115,7 +115,7 @@ class _DefaultLayoutState extends State<DefaultLayout> {
         ],
         currentIndex: _selectedIndex,
         onTap: _onItemTapped,
-        selectedItemColor: Colors.orange[900],
+        selectedItemColor: Colors.blueGrey[900],
         unselectedItemColor: Colors.grey[500],
       ),
     );

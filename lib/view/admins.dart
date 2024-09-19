@@ -20,7 +20,7 @@ class _AdminsState extends State<Admins> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Admins List'),
+        title: Center(child: Text('Admins List'),),
         automaticallyImplyLeading: false,
         centerTitle: false,
       ),

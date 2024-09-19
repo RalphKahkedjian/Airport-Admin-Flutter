@@ -8,7 +8,7 @@ class Login extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[900],
+      backgroundColor: Colors.blueGrey[900],
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -54,16 +54,19 @@ class Login extends StatelessWidget {
                 controller: controller.password,
               ),
               const SizedBox(height: 20),
-              ElevatedButton(
-                onPressed: () {
-                  controller.login(context); // Pass the context here
-                },
-                child: const Text('Login', style: TextStyle(color: Colors.white)),
-                style: ElevatedButton.styleFrom(
-                  padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  backgroundColor: Colors.blue[900],
+            ElevatedButton(
+              onPressed: () {
+                controller.login(context); // Pass the context here
+              },
+              child: const Text('Login', style: TextStyle(color: Colors.white)),
+              style: ElevatedButton.styleFrom(
+                padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
+                backgroundColor: Colors.blueGrey[900],
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
                 ),
               ),
+            ),
               const SizedBox(height: 8),
               InkWell(
                 child: const Text("Don't have an account? Register"),

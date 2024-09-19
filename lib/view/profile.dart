@@ -12,7 +12,7 @@ class Profile extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
        appBar: AppBar(
-        title: Text('Your Profile'),
+        title: Center(child: Text('Your Profile'),),
         automaticallyImplyLeading: false,
         centerTitle: false,
         ),
@@ -32,7 +32,7 @@ class Profile extends StatelessWidget {
             child: Padding(
               padding: const EdgeInsets.all(40),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
+                mainAxisAlignment: MainAxisAlignment.start,
                 children: <Widget>[
                   TextField(
                     readOnly: true,
@@ -75,7 +75,7 @@ class Profile extends StatelessWidget {
                           controller.logout();
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.orange[900]),
+                          backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(0), // Set border radius to 0
@@ -100,7 +100,7 @@ class Profile extends StatelessWidget {
                           }
                         },
                         style: ButtonStyle(
-                          backgroundColor: MaterialStateProperty.all(Colors.orange[900]),
+                          backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
                           shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(0), // Set border radius to 0

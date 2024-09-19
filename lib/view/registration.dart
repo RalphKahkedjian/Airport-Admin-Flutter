@@ -8,7 +8,7 @@ class Registration extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.orange[900],
+      backgroundColor: Colors.blueGrey[900],
       body: Center(
         child: SingleChildScrollView(
           child: Container(
@@ -69,7 +69,10 @@ class Registration extends StatelessWidget {
                 child: const Text('Register', style: TextStyle(color: Colors.white)),
                 style: ElevatedButton.styleFrom(
                   padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),
-                  backgroundColor: Colors.blue[900],
+                  backgroundColor: Colors.blueGrey[900],
+                  shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.zero,
+                ),
                 ),
               ),
               const SizedBox(height: 8),

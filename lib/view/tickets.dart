@@ -9,7 +9,7 @@ class Ticket extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Create Ticket'),
+        title: Center(child: Text('Create Ticket'),),
         automaticallyImplyLeading: false,
         centerTitle: false,
         ),
@@ -64,7 +64,11 @@ class Ticket extends StatelessWidget {
                 // Handle ticket creation
                 controller.createTicket();
               },
-              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.orange[900])),
+              style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                            RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(0), // Set border radius to 0
+                            ),
+                          ),),
               child: Text('Create Ticket', style: TextStyle(color: Colors.white),),
             ),
           ],

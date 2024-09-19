@@ -7,12 +7,12 @@ void showsuccessdialog(BuildContext context, String title, String body, Function
     builder: (BuildContext context) {
       return AlertDialog(
         backgroundColor: Colors.white,
-        title: Text(title, style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.w700),),
-        content: Text(body, style: TextStyle(color: Colors.orange[900]),),
+        title: Center(child: Text(title, style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.w700),),),
+        content: Text(body, style: TextStyle(color: Colors.blueGrey[900]),),
         actions: [
           Center(
             child: TextButton(
-            child: Text("OK", style: TextStyle(color: Colors.orange[900]),),
+            child: Text("OK", style: TextStyle(color: Colors.blueGrey[900]),),
             onPressed: () {
               Navigator.of(context).pop();
               if (callback != null) {
