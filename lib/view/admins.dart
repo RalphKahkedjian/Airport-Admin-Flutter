@@ -36,7 +36,8 @@ class _AdminsState extends State<Admins> {
                   itemCount: controller.admins.length,
                   itemBuilder: (context, index) {
                     final admin = controller.admins[index];
-                    return Column(
+                    return Padding(padding: const EdgeInsets.only(left: 20, right: 20),
+                    child: Column(
                       children: [
                         ListTile(
                           title: Text(admin.name),
@@ -44,7 +45,7 @@ class _AdminsState extends State<Admins> {
                         ),
                         Divider(height: 1, color: Colors.grey),
                       ],
-                    );
+                    ),);
                   },
                 );
               }),
