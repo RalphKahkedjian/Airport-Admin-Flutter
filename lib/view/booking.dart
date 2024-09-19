@@ -12,6 +12,7 @@ class Booking extends StatefulWidget {
 class _BookingState extends State<Booking> {
   List<dynamic> tickets = []; // Declare the tickets list to store fetched tickets
     static final TicketController controller = Get.put(TicketController());
+    
 
   @override
   void initState() {
@@ -60,59 +61,60 @@ class _BookingState extends State<Booking> {
                     margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
                     padding: EdgeInsets.all(16.0),
                     decoration: BoxDecoration(
-                      color: Colors.orange[900],
-                      borderRadius: BorderRadius.circular(12.0),
-                    ),
+                        color: Colors.white,
+                        borderRadius: BorderRadius.circular(14.0),
+                        border: Border.all(color: Colors.orange[900]!, width: 7.0),
+                      ),
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: <Widget>[
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Departure: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['departure']}", style: TextStyle(color: Colors.white)),
+                            Text("Departure: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['departure']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Destination: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['destination']}", style: TextStyle(color: Colors.white)),
+                            Text("Destination: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['destination']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Price: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['price']}", style: TextStyle(color: Colors.white)),
+                            Text("Price: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['price']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Seat Number: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['seat_number']}", style: TextStyle(color: Colors.white)),
+                            Text("Seat Number: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['seat_number']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Arrival Time: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['arrival_time']}", style: TextStyle(color: Colors.white)),
+                            Text("Arrival Time: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['arrival_time']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Departure Time: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['departure_time']}", style: TextStyle(color: Colors.white)),
+                            Text("Departure Time: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['departure_time']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         Row(
                             mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Text("Status: ", style: TextStyle(color: Colors.white, fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['status']}", style: TextStyle(color: Colors.white)),
+                            Text("Status: ", style: TextStyle(color: Colors.orange[900], fontWeight: FontWeight.bold)),
+                            Text("${tickets[index]['status']}", style: TextStyle(color: Colors.orange[900])),
                           ],
                         ),
                         SizedBox(height: 15,),

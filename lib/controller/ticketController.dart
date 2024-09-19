@@ -39,13 +39,13 @@ class TicketController extends GetxController {
     String requestBody = ticket.toJson();
 
     var response = await DioClient().GetInstance().post('/ticket', data: requestBody);
-    print("Response: ${response.data}"); // Log the entire response
+    print("Response: ${response.data}");
 
     if (response.statusCode == 200 && response.data['success'] == true) {
-      String ticketId = response.data['ticket']['id'].toString(); // Access ID from nested object
+      String ticketId = response.data['ticket']['id'].toString(); 
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('ticket_id', ticketId);
-      print("Ticket ID saved: $ticketId"); // Log saved ticket ID
+      print("Ticket ID saved: $ticketId"); 
 
       showsuccessdialog(Get.context!, "Success", "Your ticket has been created successfully", () {
         Get.offNamed('/home');
@@ -79,12 +79,10 @@ void deleteTickets() async {
     String? ticketId = prefs.getString('ticket_id');
 
     if (ticketId != null) {
-      var response = await DioClient().GetInstance().delete('/ticket/$ticketId'); // Include the ticket ID in the URL
-      print('Response: ${response.data}'); // Log the response for debugging
-
+      var response = await DioClient().GetInstance().delete('/ticket/$ticketId');
+      print('Response: ${response.data}');
       if (response.statusCode == 200) {
         showsuccessdialog(Get.context!, "Ticket Deleted Successfully", "", () {
-          // Optional: Handle post-deletion actions
         });
       } else {
         print("Failed to delete ticket: ${response.statusCode}");

@@ -6,6 +6,7 @@ import 'package:shared_preferences/shared_preferences.dart';
 
 class Profile extends StatelessWidget {
   static final HomeController controller = Get.put(HomeController());
+  String password = "1234567"; // Created a random password text 
 
   @override
   Widget build(BuildContext context) {
@@ -63,7 +64,7 @@ class Profile extends StatelessWidget {
                     decoration: InputDecoration(
                       labelText: 'Password',
                     ),
-                    controller: TextEditingController(text: userData['password']),
+                    controller: TextEditingController(text: password),
                   ),
                   SizedBox(height: 20),
                   Center(

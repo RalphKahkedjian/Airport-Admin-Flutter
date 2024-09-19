@@ -19,11 +19,11 @@ class _AdminsState extends State<Admins> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-       appBar: AppBar(
+      appBar: AppBar(
         title: Text('Admins List'),
         automaticallyImplyLeading: false,
         centerTitle: false,
-        ),
+      ),
       body: Center(
         child: Column(
           children: <Widget>[
@@ -36,9 +36,14 @@ class _AdminsState extends State<Admins> {
                   itemCount: controller.admins.length,
                   itemBuilder: (context, index) {
                     final admin = controller.admins[index];
-                    return ListTile(
-                      title: Text(admin.name),
-                      subtitle: Text(admin.email),
+                    return Column(
+                      children: [
+                        ListTile(
+                          title: Text(admin.name),
+                          subtitle: Text(admin.email),
+                        ),
+                        Divider(height: 1, color: Colors.grey),
+                      ],
                     );
                   },
                 );
