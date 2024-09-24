@@ -95,18 +95,18 @@ void clearTextFields() {
     }
   }
 
-void deleteTickets(int ticketID) async {
+void deleteTickets(int ticketID, Function onSuccess, Function onError) async {
   try {
     var response = await DioClient().GetInstance().delete('/ticket/$ticketID');
     if (response.statusCode == 200) {
-     return;
+      onSuccess();
     } else {
       print("Error deleting ticket: ${response.data}");
-      showsuccessdialog(Get.context!, "Error", "Failed to delete ticket.", () {});
+      onError("Failed to delete ticket.");
     }
   } catch (e) {
     print("Error: $e");
-    showsuccessdialog(Get.context!, "Error", "An unexpected error occurred.", () {});
+    onError("An unexpected error occurred.");
   }
 }
 }

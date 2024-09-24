@@ -3,7 +3,6 @@ import 'package:airportadminflutter/core/showSuccessDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:airportadminflutter/core/network/dioClient.dart';
 import 'package:get/get.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 class Booking extends StatefulWidget {
   @override
@@ -80,7 +79,7 @@ class _BookingState extends State<Booking> {
                             Text("${tickets[index]['departure']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
+                        Divider(color: Colors.black,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -88,7 +87,7 @@ class _BookingState extends State<Booking> {
                             Text("${tickets[index]['destination']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
+                        Divider(color: Colors.black,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -96,7 +95,7 @@ class _BookingState extends State<Booking> {
                             Text("${tickets[index]['price']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
+                        Divider(color: Colors.black,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -104,7 +103,7 @@ class _BookingState extends State<Booking> {
                             Text("${tickets[index]['seat_number']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
+                        Divider(color: Colors.black,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -112,7 +111,7 @@ class _BookingState extends State<Booking> {
                             Text("${tickets[index]['arrival_time']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
+                        Divider(color: Colors.black,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -120,15 +119,15 @@ class _BookingState extends State<Booking> {
                             Text("${tickets[index]['departure_time']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
-                               Row(
+                        Divider(color: Colors.black,),
+                        Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
                             Text("Spots: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
                             Text("${tickets[index]['spots']}", style: TextStyle(color: Colors.blueGrey[900])),
                           ],
                         ),
-                           Divider(color: Colors.black,),
+                        Divider(color: Colors.black,),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
@@ -140,30 +139,52 @@ class _BookingState extends State<Booking> {
                         SizedBox(height: 15),
                         Center(
                           child: ElevatedButton(
-                          onPressed: () async {
-                            int ticketID = tickets[index]['id'];
-
-                            if (ticketID != null) {
-                               showsuccessdialog(Get.context!, "Ticket Deleted Successfully", "", () {
-                                print("Ticket ID $ticketID has been deleted");
-                                controller.deleteTickets(ticketID);
-                              });
-                              getTickets();
-                            } else {
-                              showsuccessdialog(Get.context!, "Error", "Ticket ID not found.", () {});
-                            }
-                          },
-                          style: ButtonStyle(
-                            backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
-                            shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                              RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(0),
+                            onPressed: () {
+                              int ticketID = tickets[index]['id'];
+                              showDialog(
+                                context: context,
+                                builder: (BuildContext context) {
+                                  return AlertDialog(
+                                    title: Text("Confirm Delete"),
+                                    content: Text("Are you sure you want to delete this ticket?"),
+                                    actions: [
+                                      TextButton(
+                                        child: Text("Cancel"),
+                                        onPressed: () {
+                                          Navigator.of(context).pop();
+                                        },
+                                      ),
+                                      TextButton(
+                                        child: Text("Delete"),
+                                        onPressed: () async {
+                                          Navigator.of(context).pop();
+                                          controller.deleteTickets(ticketID, () {
+                                            showsuccessdialog(Get.context!, "Ticket Deleted Successfully", "", () {
+                                              print("Ticket ID $ticketID has been deleted");
+                                            });
+                                            getTickets();
+                                          }, (errorMessage) {
+                                            showsuccessdialog(Get.context!, "Error", errorMessage, () {});
+                                          });
+                                        },
+                                      ),
+                                    ],
+                                  );
+                                },
+                              );
+                            },
+                            style: ButtonStyle(
+                              backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
+                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
+                                RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(0),
+                                ),
                               ),
                             ),
+                            child: Text("Delete", style: TextStyle(color: Colors.white)),
                           ),
-                          child: Text("Delete", style: TextStyle(color: Colors.white)),
-                        ),
                         )
+
                       ],
                     ),
                   );
