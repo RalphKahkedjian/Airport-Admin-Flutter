@@ -13,7 +13,6 @@ class RegistrationController extends GetxController {
   void register(BuildContext context) async {
   print("Register method called");
 
-  // Basic validation
   if (name.text.isEmpty || email.text.isEmpty || password.text.isEmpty) {
     print("Validation failed");
     showsuccessdialog(context, 'Error', 'Please fill in all fields', null);
@@ -35,9 +34,9 @@ class RegistrationController extends GetxController {
 
     if (response.statusCode == 200) {
       String token = response.data['access_token'];
-      int id = response.data['admin']['id']; // Extracting admin ID
-      await _saveUserData(token, id); // Pass the ID to save it
-      showsuccessdialog(context, 'Success', 'Registration successful!', () {
+      int id = response.data['admin']['id'];
+      await _saveUserData(token, id);
+      showsuccessdialog(context, 'Success', 'Admin registered successfully!', () {
         print("Navigating to home");
         Future.delayed(const Duration(seconds: 5));
         Get.offNamed('/home');
@@ -53,7 +52,7 @@ class RegistrationController extends GetxController {
 Future<void> _saveUserData(String token, int id) async {
   SharedPreferences prefs = await SharedPreferences.getInstance();
   await prefs.setString('token', token);
-  await prefs.setInt('id', id); // Save the ID
+  await prefs.setInt('id', id);
   await prefs.setString('name', name.text);
   await prefs.setString('email', email.text);
   await prefs.setString('password', password.text);

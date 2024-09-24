@@ -17,10 +17,16 @@ class TicketController extends GetxController {
   TextEditingController priceController = TextEditingController();
   TextEditingController departureTimeController = TextEditingController();
   TextEditingController arrivalTimeController = TextEditingController();
+  TextEditingController spots = TextEditingController();
 
  void createTicket() async {
   try {
     double price = double.tryParse(priceController.text) ?? 0.0;
+
+    int spotsValue = int.tryParse(spots.text) ?? 0;
+    if (spotsValue < 50 || spotsValue > 200) {
+      throw Exception("Spots must be between 50 and 200.");
+    }
 
     DateTime now = DateTime.now();
     DateTime departureTime = _parseTime(departureTimeController.text, now);
@@ -34,6 +40,7 @@ class TicketController extends GetxController {
       price: price,
       departureTime: departureTime,
       arrivalTime: arrivalTime,
+      spots: spotsValue.toString(),
     );
 
     String requestBody = ticket.toJson();
@@ -47,19 +54,34 @@ class TicketController extends GetxController {
       await prefs.setString('ticket_id', ticketId);
       print("Ticket ID saved: $ticketId"); 
 
+      // Clear all text fields after success
+      clearTextFields();
+
       showsuccessdialog(Get.context!, "Success", "Your ticket has been created successfully", () {
-        Get.offNamed('/home');
+        print("Ticket ID of ${ticketId} has been created");
       });
     } else {
       print("Failed to create ticket: ${response.statusCode}");
     }
   } catch (e) {
     print("Error while creating ticket: $e");
-    showsuccessdialog(Get.context!, "Error", "An error occurred while creating the ticket. Please try again.", () {
+    showsuccessdialog(Get.context!, "Error", e.toString(), () {
       Get.back();
     });
   }
 }
+
+void clearTextFields() {
+  departure.clear();
+  destination.clear();
+  flightNumberController.clear();
+  seatNumberController.clear();
+  priceController.clear();
+  departureTimeController.clear();
+  arrivalTimeController.clear();
+  spots.clear();
+}
+
 
 
   DateTime _parseTime(String timeString, DateTime date) {
@@ -73,29 +95,18 @@ class TicketController extends GetxController {
     }
   }
 
-void deleteTickets() async {
+void deleteTickets(int ticketID) async {
   try {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    String? ticketId = prefs.getString('ticket_id');
-
-    if (ticketId != null) {
-      var response = await DioClient().GetInstance().delete('/ticket/$ticketId');
-      print('Response: ${response.data}');
-      if (response.statusCode == 200) {
-        showsuccessdialog(Get.context!, "Ticket Deleted Successfully", "", () {
-        });
-      } else {
-        print("Failed to delete ticket: ${response.statusCode}");
-      }
+    var response = await DioClient().GetInstance().delete('/ticket/$ticketID');
+    if (response.statusCode == 200) {
+     return;
     } else {
-      print("No ticket ID found in SharedPreferences.");
+      print("Error deleting ticket: ${response.data}");
+      showsuccessdialog(Get.context!, "Error", "Failed to delete ticket.", () {});
     }
   } catch (e) {
-    print('Error deleting ticket: $e');
+    print("Error: $e");
+    showsuccessdialog(Get.context!, "Error", "An unexpected error occurred.", () {});
   }
 }
-
-
-
-
 }

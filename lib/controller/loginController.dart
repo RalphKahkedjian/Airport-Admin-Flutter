@@ -34,20 +34,20 @@ class LoginController extends GetxController {
       if (response.statusCode == 200) {
         await _saveUserData(
           response.data['access_token'], 
-          response.data['admin']['name'], // Correctly retrieve the name
-          response.data['admin']['id'] // Correctly retrieve the ID
+          response.data['admin']['name'],
+          response.data['admin']['id'] 
         );
-        showsuccessdialog(context, 'Success', 'Login successful!', () {
+        showsuccessdialog(context, 'Success', 'Welcome back, ${response.data['admin']['name']} !', () {
           print("Navigating to home");
           Future.delayed(const Duration(seconds: 2), () {
-            Get.offNamed('/home'); // Navigate to home screen
+            Get.offNamed('/home'); 
           });
         });
       } else {
-        showsuccessdialog(context, 'Error', 'Login failed. Please try again.', null);
+        showsuccessdialog(Get.context!, 'Error', 'Incorrect email or password', null);
       }
     } catch (e) {
-      showsuccessdialog(context, 'Error', 'An error occurred: $e', null);
+      showsuccessdialog(Get.context!, 'Error', 'An error occurred', null);
     }
   }
 
@@ -55,7 +55,7 @@ class LoginController extends GetxController {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     await prefs.setString('token', token);
     await prefs.setString('email', email.text);
-    await prefs.setString('name', name); // Save the user's name correctly
-    await prefs.setInt('id', id); // Save the user's ID correctly as an integer
+    await prefs.setString('name', name); 
+    await prefs.setInt('id', id);
   }
 }

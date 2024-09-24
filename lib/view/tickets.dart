@@ -58,10 +58,17 @@ class Ticket extends StatelessWidget {
               decoration: InputDecoration(labelText: 'Arrival Time (HH:mm)'),
               onTap: () => _selectTime(controller.arrivalTimeController),
             ),
+                SizedBox(height: 15,),
+            TextField(
+              controller: controller.spots,
+              decoration: InputDecoration(labelText: 'Spots'),
+              keyboardType: TextInputType.number,
+            ),
                 SizedBox(height: 25,),
             ElevatedButton(
               onPressed: () {
                 controller.createTicket();
+               
               },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(

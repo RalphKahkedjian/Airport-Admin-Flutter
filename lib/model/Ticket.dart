@@ -1,6 +1,5 @@
 import 'dart:convert';
 
-
 class Ticket {
   final String departure;
   final String destination;
@@ -9,6 +8,7 @@ class Ticket {
   final double price;        
   final DateTime departureTime; 
   final DateTime arrivalTime; 
+  final String spots;
   final String status;     
 
   Ticket({
@@ -19,6 +19,7 @@ class Ticket {
     required this.price,
     required this.departureTime,
     required this.arrivalTime,
+    required this.spots,
     this.status = 'available',
   });
 
@@ -31,6 +32,7 @@ class Ticket {
       'price': price,
       'departure_time': departureTime.toIso8601String(),
       'arrival_time': arrivalTime.toIso8601String(),
+      'spots' : spots,
       'status': status,
     };
   }
@@ -47,6 +49,7 @@ class Ticket {
       price: data['price'].toDouble(),
       departureTime: DateTime.parse(data['departure_time']),
       arrivalTime: DateTime.parse(data['arrival_time']),
+      spots: data['spots'],
       status: data['status'],
     );
   }
