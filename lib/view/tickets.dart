@@ -68,7 +68,6 @@ class Ticket extends StatelessWidget {
             ElevatedButton(
               onPressed: () {
                 controller.createTicket();
-               
               },
               style: ButtonStyle(backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),  shape: MaterialStateProperty.all<RoundedRectangleBorder>(
                             RoundedRectangleBorder(
