@@ -67,7 +67,7 @@ class Adminscontroller extends GetxController {
   void deleteUser(int userId) async {
     try {
       var response = await DioClient().GetInstance().delete('/user/$userId');
-      if (response.statusCode == 200) { // Check for successful deletion
+      if (response.statusCode == 200) { 
         showsuccessdialog(Get.context!, "User deleted successfully", "", null);
         viewUsers();
       } else {

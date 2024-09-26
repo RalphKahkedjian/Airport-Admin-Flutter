@@ -10,6 +10,8 @@ class Admins extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text('Admins and Users'),
+        centerTitle: true,
+        automaticallyImplyLeading: false,
       ),
       body: Column(
         children: [

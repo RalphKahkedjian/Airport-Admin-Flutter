@@ -3,6 +3,7 @@ import 'package:airportadminflutter/core/showSuccessDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:airportadminflutter/core/network/dioClient.dart';
 import 'package:get/get.dart';
+import 'package:intl/intl.dart';
 
 class Booking extends StatefulWidget {
   @override
@@ -44,103 +45,78 @@ class _BookingState extends State<Booking> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text("Tickets Available")),
-        automaticallyImplyLeading: false,
+        title: Text("Tickets Available", style: TextStyle(color: Colors.blueGrey[900]!)),
+        centerTitle: true,
+        backgroundColor: Colors.white,
+        elevation: 2,
       ),
       body: Center(
         child: tickets.isEmpty
-            ? Text("No Tickets Found")
+            ? Padding(
+                padding: const EdgeInsets.only(top: 50.0),
+                child: Text("No Tickets Found", style: TextStyle(color: Colors.blueGrey[900]!, fontSize: 18)),
+              )
             : ListView.builder(
                 itemCount: tickets.length,
                 itemBuilder: (context, index) {
-                  return Container(
-                    margin: EdgeInsets.symmetric(vertical: 8.0, horizontal: 16.0),
-                    padding: EdgeInsets.all(16.0),
-                    decoration: BoxDecoration(
-                      color: Colors.white,
-                      borderRadius: BorderRadius.circular(14.0),
-                      border: Border.all(color: Colors.blueGrey[900]!, width: 7.0),
+                  var ticket = tickets[index];
+
+                  // Transforming the datetime to hh:mm format
+                  DateTime arrivalDateTime = DateTime.parse(ticket['arrival_time']);
+                  String formattedArrivalTime = DateFormat('HH:mm').format(arrivalDateTime);
+
+                  DateTime departureDateTime = DateTime.parse(ticket['departure_time']);
+                  String formattedDepartureTime = DateFormat('HH:mm').format(departureDateTime);
+
+                  return Card(
+                    margin: EdgeInsets.symmetric(vertical: 10, horizontal: 16),
+                    elevation: 6,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(16),
+                      side: BorderSide(color: Colors.blueGrey[900]!, width: 2),
                     ),
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: <Widget>[
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("ID: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['id']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Departure: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['departure']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Destination: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['destination']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Price: €", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['price']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Seat Number: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['seat_number']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Arrival Time: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['arrival_time']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Departure Time: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['departure_time']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Spots: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['spots']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Text("Status: ", style: TextStyle(color: Colors.blueGrey[900], fontWeight: FontWeight.bold)),
-                            Text("${tickets[index]['status']}", style: TextStyle(color: Colors.blueGrey[900])),
-                          ],
-                        ),
-                        Divider(color: Colors.black,),
-                        SizedBox(height: 15),
-                        Center(
-                          child: ElevatedButton(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16.0),
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.center,
+                        children: [
+                          Icon(Icons.airplanemode_active, size: 40, color: Colors.blueGrey[900]!),
+                          SizedBox(height: 10),
+                          Text(
+                            "${ticket['departure']} to ${ticket['destination']}",
+                            style: TextStyle(
+                              fontSize: 24,
+                              fontWeight: FontWeight.bold,
+                              color: Colors.blueGrey[900]!,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 8),
+                          Text("Flight: ${ticket['flight_number']}", style: TextStyle(fontSize: 16, color: Colors.grey[700])),
+                          SizedBox(height: 4),
+                          Text("Seat: ${ticket['seat_number']}", style: TextStyle(fontSize: 16, color: Colors.grey[700])),
+                          SizedBox(height: 16),
+                          Text(
+                            "Departure: $formattedDepartureTime",
+                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Arrival Time: $formattedArrivalTime",
+                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 4),
+                          Text(
+                            "Spots: ${ticket['spots']}",
+                            style: TextStyle(fontSize: 16, color: Colors.grey[600]),
+                            textAlign: TextAlign.center,
+                          ),
+                          SizedBox(height: 16),
+                          ElevatedButton(
                             onPressed: () {
-                              int ticketID = tickets[index]['id'];
+                              int ticketID = ticket['id'];
                               showDialog(
                                 context: context,
                                 builder: (BuildContext context) {
@@ -173,19 +149,16 @@ class _BookingState extends State<Booking> {
                                 },
                               );
                             },
-                            style: ButtonStyle(
-                              backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
-                              shape: MaterialStateProperty.all<RoundedRectangleBorder>(
-                                RoundedRectangleBorder(
-                                  borderRadius: BorderRadius.circular(0),
-                                ),
-                              ),
+                            style: ElevatedButton.styleFrom(
+                              foregroundColor: Colors.white,
+                              backgroundColor: Colors.blueGrey[900],
+                              padding: EdgeInsets.symmetric(vertical: 12, horizontal: 20),
+                              shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8)),
                             ),
                             child: Text("Delete", style: TextStyle(color: Colors.white)),
                           ),
-                        )
-
-                      ],
+                        ],
+                      ),
                     ),
                   );
                 },

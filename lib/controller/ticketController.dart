@@ -53,10 +53,7 @@ class TicketController extends GetxController {
       SharedPreferences prefs = await SharedPreferences.getInstance();
       await prefs.setString('ticket_id', ticketId);
       print("Ticket ID saved: $ticketId"); 
-
-      // Clear all text fields after success
       clearTextFields();
-
       showsuccessdialog(Get.context!, "Success", "Your ticket has been created successfully", () {
         print("Ticket ID of ${ticketId} has been created");
       });
