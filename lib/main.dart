@@ -12,7 +12,6 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   SharedPreferences prefs = await SharedPreferences.getInstance();
   String startRoute = prefs.getString('token') != null ? '/home' : '/login'; 
-
   runApp(MyApp(startRoute: startRoute));
 }
 
@@ -45,21 +44,7 @@ class DefaultLayout extends StatefulWidget {
 
 class _DefaultLayoutState extends State<DefaultLayout> {
   int _selectedIndex = 0;
-  String _name = "";
-
-  @override
-  void initState() {
-    super.initState();
-    _loadName(); 
-  }
-
-  Future<void> _loadName() async {
-    SharedPreferences prefs = await SharedPreferences.getInstance();
-    setState(() {
-      _name = prefs.getString('name') ?? "User"; 
-    });
-  }
-
+ 
   final List<Widget> _pages = [
     Booking(),
     Ticket(),

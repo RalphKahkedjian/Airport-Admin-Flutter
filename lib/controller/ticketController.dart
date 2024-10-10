@@ -79,8 +79,6 @@ void clearTextFields() {
   spots.clear();
 }
 
-
-
   DateTime _parseTime(String timeString, DateTime date) {
     try {
       final DateFormat formatter = DateFormat.jm();

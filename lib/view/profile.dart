@@ -1,5 +1,4 @@
 import 'package:airportadminflutter/controller/homeController.dart';
-import 'package:airportadminflutter/core/showSuccessDialog.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -87,18 +86,13 @@ class Profile extends StatelessWidget {
                       ),
 
                       SizedBox(width: 10),
-
                       ElevatedButton(
                         onPressed: () async {
-                        
                           SharedPreferences prefs = await SharedPreferences.getInstance();
                           int? adminId = prefs.getInt('id');
-
                           if (adminId != null) {
                             controller.deleteAccount(adminId);
-                          } else {
-                            showsuccessdialog(Get.context!, "Error", "Admin ID not found.", () {});
-                          }
+                          } 
                         },
                         style: ButtonStyle(
                           backgroundColor: MaterialStateProperty.all(Colors.blueGrey[900]),
@@ -127,12 +121,11 @@ class Profile extends StatelessWidget {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     String? name = prefs.getString('name');
     String? email = prefs.getString('email');
-    int? id = prefs.getInt('id'); // Retrieve the admin ID as int
-
+    int? id = prefs.getInt('id'); 
     return {
       'name': name,
       'email': email,
-      'id': id?.toString(), // Convert the ID to a string for display
+      'id': id?.toString(),
     };
   }
 }
